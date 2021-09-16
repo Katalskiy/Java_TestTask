@@ -9,7 +9,6 @@ public class MergeSort {
     List<String> in1;
     List<String> in2;
     List<String> in3;
-    List<String> in123;
 
     public MergeSort (List<String> in1 , List<String> in2 , List<String> in3) {
         this.in1 = in1;
@@ -19,24 +18,46 @@ public class MergeSort {
 
     private static List<String> mergeTwoLists (List<String> array1 , List<String> array2) {
         List<String> sortedList = new ArrayList<>();
-        int i = 0;
 
-        while (array1 != null && array2 != null) {
-            if (array1.get(i).) {
+        int i = 0;
+        int k = 0;
+
+        while (i < array1.size() && k < array2.size()) {
+            if (compareList(array1.get(i) , array2.get(k)) > 0) {
                 sortedList.add(array1.get(i));
+                i++;
             }
             else {
-                sortedList.add(array2.get(i));
+                sortedList.add(array2.get(k));
+                k++;
             }
-            i++;
         }
+
+        while (i < array1.size() || k < array2.size()) {
+            if (i < array1.size()) {
+                sortedList.add(array1.get(i));
+                i++;
+            } else {
+                sortedList.add(array2.get(k));
+                k++;
+            }
+        }
+
         return sortedList;
     }
 
+    private static int compareList(String list1 , String list2) {
+        int a = Integer.parseInt(list1);
+        int b = Integer.parseInt(list2);
+        if ((a - b) == 0 || (a - b) > 0) {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    }
+
     public List<String> getMergeSort () {
-        List<String> midList = new ArrayList<>();
-        midList.addAll(mergeTwoLists(in1 , in2));
-        in123.addAll(mergeTwoLists(midList , in3));
-        return in123;
+        return mergeTwoLists(mergeTwoLists(in1 , in2) , in3);
     }
 }
