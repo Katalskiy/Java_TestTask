@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class MergeSort {
@@ -15,14 +14,14 @@ public class MergeSort {
         this.in3 = in3;
     }
 
-    private static List<String> mergeTwoListsAscending (List<String> array1 , List<String> array2) {
+    public List<String> mergeIntegerTwoListsAscending (List<String> array1 , List<String> array2) {
         List<String> sortedList = new ArrayList<>();
 
         int i = 0;
         int k = 0;
 
         while (i < array1.size() && k < array2.size()) {
-            if (compareListIntegerAscending(array1.get(i) , array2.get(k)) > 0) {
+            if (compareListInteger(array1.get(i) , array2.get(k)) > 0) {
                 sortedList.add(array1.get(i));
                 i++;
             }
@@ -45,24 +44,54 @@ public class MergeSort {
         return sortedList;
     }
 
-    private static List<String> mergeTwoListsDescending(List<String> array1 , List<String> array2) {
+    public List<String> mergeIntegerTwoListsDescending(List<String> array1 , List<String> array2) {
         List<String> sortedList = new ArrayList<>();
 
-        int i = array1.size() ;
-        int k = array2.size() ;
+        int i = 0;
+        int k = 0;
 
-        while (i > 0  && k > 0) {
-            if (compareListIntegerDescending(array1.get(i) , array2.get(k)) > 0) {
+        while (i < array1.size() && k < array2.size()) {
+            if (compareListInteger(array1.get(i) , array2.get(k)) > 0) {
                 sortedList.add(array1.get(i));
-                i--;
+                i++;
             }
             else {
                 sortedList.add(array2.get(k));
-                k--;
+                k++;
             }
         }
 
-        while (i > 0  && k > 0) {
+        while (i < array1.size() || k < array2.size()) {
+            if (i < array1.size()) {
+                sortedList.add(array1.get(i));
+                i++;
+            } else {
+                sortedList.add(array2.get(k));
+                k++;
+            }
+        }
+        Collections.reverse(sortedList);
+        return sortedList;
+    }
+
+    public List<String> mergeStringTwoListsAscending (List<String> array1 , List<String> array2) {
+        List<String> sortedList = new ArrayList<>();
+
+        int i = 0;
+        int k = 0;
+
+        while (i < array1.size() && k < array2.size()) {
+            if (array1.get(i).hashCode() > array2.get(k).hashCode()) {
+                sortedList.add(array1.get(i));
+                i++;
+            }
+            else {
+                sortedList.add(array2.get(k));
+                k++;
+            }
+        }
+
+        while (i < array1.size() || k < array2.size()) {
             if (i < array1.size()) {
                 sortedList.add(array1.get(i));
                 i++;
@@ -75,29 +104,49 @@ public class MergeSort {
         return sortedList;
     }
 
-    private static int compareListIntegerAscending(String list1 , String list2) {
-        int a = Integer.parseInt(list1);
-        int b = Integer.parseInt(list2);
-        if ((a - b) == 0 || (a - b) > 0) {
-            return -1;
+    public List<String> mergeStringTwoListsDescending (List<String> array1 , List<String> array2) {
+        List<String> sortedList = new ArrayList<>();
+
+        int i = 0;
+        int k = 0;
+
+        while (i < array1.size() && k < array2.size()) {
+            if (array1.get(i).hashCode() > array2.get(k).hashCode()) {
+                sortedList.add(array1.get(i));
+                i++;
+            }
+            else {
+                sortedList.add(array2.get(k));
+                k++;
+            }
         }
-        else {
-            return 1;
+
+        while (i < array1.size() || k < array2.size()) {
+            if (i < array1.size()) {
+                sortedList.add(array1.get(i));
+                i++;
+            } else {
+                sortedList.add(array2.get(k));
+                k++;
+            }
         }
+
+        Collections.reverse(sortedList);
+        return sortedList;
     }
 
-    private static int compareListIntegerDescending(String list1 , String list2) {
+    private static int compareListInteger(String list1 , String list2) {
         int a = Integer.parseInt(list1);
         int b = Integer.parseInt(list2);
         if ((a - b) == 0 || (a - b) > 0) {
-            return 1;
+            return -1;
         }
         else {
-            return -1;
+            return 1;
         }
     }
 
     public List<String> getMergeSort () {
-        return mergeTwoListsAscending(in1 , in2);
+        return mergeStringTwoListsAscending(in1 , in2);
     }
 }

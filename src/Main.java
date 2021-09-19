@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static final String IN1 = "ExampleTxt/in1.txt";
@@ -12,22 +13,18 @@ public class Main {
     public static final String IN4 = "ExampleTxt/in4.txt";
     public static final String IN5 = "ExampleTxt/in5.txt";
     public static final String IN6 = "ExampleTxt/in6.txt";
-    static String outputNameFile = "";
 
     public static void main(String[] args) {
-        new ParseCommandLine(args);
-        ParseCommandLine.messageToUser();
-        System.out.println(printOnScreen(IN1 , IN2 , IN3));
+        messageToUser();
 
     }
 
-    private static List<String> printOnScreen(String path1, String path2, String path3) {
-        List<String> in1 = ReadFileLineByLine.readFileLineByLine(path1);
-        List<String> in2 = ReadFileLineByLine.readFileLineByLine(path2);
-        List<String> in3 = ReadFileLineByLine.readFileLineByLine(path3);
-        MergeSort mergeSort = new MergeSort(in1 , in2 , in3);
-
-        return mergeSort.getMergeSort();
+    private static void messageToUser () {
+        System.out.println("Выберите режим сортировки: -a (по возрастанию), -d (по убыванию) \n" +
+                "Выберите тип данных для сортировки: -s (сортировка для строк), -i (для целых чисел) \n" +
+                "Введите имя выходного файла, а также имена входных файлов для последующей сортировки \n" +
+                "Примеры запуска из командной строки для Windows: \n" +
+                "sort-it.exe -i -a out.txt in1.txt in2.txt in3.txt (для целых чисел по возрастанию) \n");
     }
 
     private static void saveFile (List<String> array , String outputNameFile) {
@@ -37,7 +34,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 }
 
 
